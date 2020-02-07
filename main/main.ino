@@ -43,10 +43,10 @@ void setup() {
 
   // initialize the variables we are linked to
   Input = 0;
-  Setpoint = 383.625 // Min 3 sensors need to be on ((3*1023)/8)
+  Setpoint = 383.625; // Min 3 sensors need to be on ((3*1023)/8)
 
              // Turn the PID on
-             pid.setMode(AUTOMATIC);
+             pid.SetMode(AUTOMATIC);
 }
 
 int totalPinHigh(int inRange[]) {
@@ -85,7 +85,7 @@ double calcAnalogValue(int inRange[]) {
 
 void loop() {
   for (int i = 0; i < inCount ; ++i) {
-    if (inPins[i] == "HIGH") {
+    if (digitalRead(inPins[i]) == HIGH) {
       inRange[i] = 1023;
     } else {
       inRange[i] = 0;

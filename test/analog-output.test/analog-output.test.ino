@@ -11,20 +11,7 @@ void setup() {
 void loop() {
   Serial.print("CLEAR\n");
   for (int i = 0; i < outPinsCount; ++i) {
-    Serial.print("Testing for pin number: ");
-    Serial.print(analogPinOutput[i]);
-    Serial.print("\n");
-    analogWrite(analogPinOutput[0], 0);
-    analogWrite(analogPinOutput[1], 0);
-    analogWrite(analogPinOutput[2], 0);
-    for (int j = 0; j < 255; ++j) {
-      analogWrite(analogPinOutput[i], j);
-      delay(10);
-    }
-    for (int j = 255; j > 0; --j) {
-      analogWrite(analogPinOutput[i], j);
-      delay(10);
-    }
+    analogWrite(analogPinOutput[i], 255);
   }
-  delay(1000);
+  delay(100);
 }

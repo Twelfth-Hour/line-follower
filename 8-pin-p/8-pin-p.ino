@@ -1,7 +1,7 @@
 int weights[] = {-4, -3, -2, -1, 1, 2, 3, 4};
 int pins[] = {2, 3, 4, 5, 7, 8, 12, 13};
 int high[] = {0, 0, 0, 0, 0, 0, 0, 0};
-int p = 7;
+int p = 10;
 int history;
 int rpm = 255;
 
@@ -46,15 +46,24 @@ void setup() {
   }
   pinMode(9, OUTPUT);
   pinMode(10, OUTPUT);
+  pinMode(6, OUTPUT);
+  pinMode(11, OUTPUT);
 }
 
 void loop() {
   // put your main code here, to run repeatedly:
   read_pins();
   double c = 10 * get_centroid();
+  if (number_of_pins_high() >= 5) {
+    rpm = 220;
+  } else {
+    rpm = 255;
+  }
   if (number_of_pins_high() == 8) {
     analogWrite(9, 0);
     analogWrite(10, 0);
+    analogWrite(6, 0);
+    analogWrite(11, 0);
     Serial.print("8 PINS HIGH \n");
   } else {
     if (number_of_pins_high() == 0) {
@@ -67,9 +76,11 @@ void loop() {
       c *= -1;
       analogWrite(9, rpm);
       analogWrite(10, (rpm - p * c) < 0 ? 0 : (rpm - p * c));
+      analogWrite(6, (rpm - p * c) < 0 ? p * c : 0);
     } else {
       analogWrite(10, rpm);
       analogWrite(9, (rpm - p * c) < 0 ? 0 : (rpm - p * c));
+      analogWrite(11, (rpm - p * c) < 0 ? p * c : 0);
     }
   }
 }

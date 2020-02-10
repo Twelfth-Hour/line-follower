@@ -1,3 +1,5 @@
+#include <PID_v1.h>
+
 int outPinsCount = 3;
 int analogPinOutput[3] = {9, 10, 11};
 int analogPinInputTest[3] = {A1, A2, A3};
